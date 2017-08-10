@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row markov">
+		<div class="col-2 text-center left rounded-top">
+			<%= form_tag(generate_path(format: :js, fname: @corpus.fname), method: :get, remote: true, enforce_utf8: false) do %>
+				<div class="form-group">
+					<%= select_tag :number, options_for_select(1..20), class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= submit_tag "Generate", class: "btn btn-outline-primary" %>
+				</div>
+			<% end %>
+		</div>
+		<div class="output col-10"><%= render partial: "generator", locals: {generator: @generator, number: @number}%></div>
+	</div>
+	<div class="row corpora">
+		<div class="col-2 text-center left rounded-bottom">
+			<% for corpus in @corpora.each do %>
+				<%= button_to corpus.name, "/"+corpus.id.to_s, method: :get, class: "btn btn-outline-primary btn-block"%>
+			<% end %>
+		</div>
+		<div class="col-10"><!-- box for putting in new input text; submit button --></div>
+	</div>
+</div>
